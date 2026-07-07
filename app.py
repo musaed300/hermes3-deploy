@@ -1,6 +1,6 @@
 """Hermes 3.0 Chat API"""
 import os, json, sqlite3, ssl, urllib.request, urllib.error, random, string
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, send_from_directory
 
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 DEFAULT_MODEL = "moonshotai/kimi-k2.7-code"
@@ -20,6 +20,10 @@ def cors(response):
 
 @app.route("/<path:p>", methods=["OPTIONS"])
 def opts(p): return make_response("", 204)
+
+@app.route("/")
+def index():
+    return send_from_directory("templates", "index.html")
 
 def db():
     c = sqlite3.connect(DB_PATH)
