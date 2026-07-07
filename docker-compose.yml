@@ -1,0 +1,11 @@
+services:
+  hermes:
+    build: .
+    container_name: hermes
+    ports:
+      - "9119:9119"
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
